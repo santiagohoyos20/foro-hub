@@ -1,4 +1,4 @@
 package com.sjhs.forohub.domain.perfil;
 
-public class perfil {
+public class Perfil {
 }
