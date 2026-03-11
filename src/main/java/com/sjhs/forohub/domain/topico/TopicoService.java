@@ -11,7 +11,7 @@ public class TopicoService {
     private TopicoRepository topicoRepository;
 
     public Page<TopicoRespuestaDTO> listar(Pageable paginacion) {
-        return topicoRepository.findAll(paginacion)
+        return topicoRepository.findAllByStatusTrue(paginacion)
                 .map(TopicoRespuestaDTO::new);
     }
 
@@ -27,4 +27,8 @@ public class TopicoService {
         return new TopicoRespuestaDTO(topico);
     }
 
+    public void eliminarTopico(Long id){
+        Topico topico = topicoRepository.getReferenceById(id);
+        topico.desactivar();
+    }
 }

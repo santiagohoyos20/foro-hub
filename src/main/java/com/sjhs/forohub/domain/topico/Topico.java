@@ -32,6 +32,7 @@ public class Topico {
         this.titulo = datos.titulo();
         this.mensaje = datos.mensaje();
         this.fechaCreacion = LocalDateTime.now();
+        this.status = true;
         this.autor = autor;
         this.curso = datos.curso();
     }
@@ -47,4 +48,9 @@ public class Topico {
             this.status = datosActualizarTopico.status();
         }
     }
+
+    public void desactivar() {
+        this.status = false;
+    }
+
 }

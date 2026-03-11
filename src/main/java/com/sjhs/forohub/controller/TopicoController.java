@@ -31,7 +31,6 @@ public class TopicoController {
     }
 
     @PostMapping
-    @Transactional
     public ResponseEntity<TopicoRespuestaDTO> registrar(@RequestBody @Valid RegistrarTopicoDTO topico) {
         var respuesta = registrarTopicoService.registrar(topico);
         return ResponseEntity.ok(respuesta);
@@ -42,5 +41,13 @@ public class TopicoController {
     public ResponseEntity<TopicoRespuestaDTO> actualizarTopico(@PathVariable Long id, @RequestBody @Valid ActualizarTopicoDTO datosActualizarTopico) {
         TopicoRespuestaDTO topico = topicoService.actualizarTopico(id, datosActualizarTopico);
         return ResponseEntity.ok(topico);
+    }
+
+    // DELETE LOGICO
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity eliminarMedico(@PathVariable Long id) {
+        topicoService.eliminarTopico(id);
+        return ResponseEntity.noContent().build();
     }
 }
