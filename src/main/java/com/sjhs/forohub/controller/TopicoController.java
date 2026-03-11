@@ -1,9 +1,6 @@
 package com.sjhs.forohub.controller;
 
-import com.sjhs.forohub.domain.topico.ListarTopicosService;
-import com.sjhs.forohub.domain.topico.RegistrarTopicoDTO;
-import com.sjhs.forohub.domain.topico.RegistrarTopicoService;
-import com.sjhs.forohub.domain.topico.TopicoRespuestaDTO;
+import com.sjhs.forohub.domain.topico.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,18 +18,29 @@ public class TopicoController {
     private RegistrarTopicoService registrarTopicoService;
 
     @Autowired
-    private ListarTopicosService listarTopicosService;
+    private TopicoService topicoService;
 
     @GetMapping
     public ResponseEntity<Page<TopicoRespuestaDTO>> listar(@PageableDefault(size = 2) Pageable paginacion) {
-        return ResponseEntity.ok(listarTopicosService.listar(paginacion));
+        return ResponseEntity.ok(topicoService.listar(paginacion));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<TopicoRespuestaDTO> listarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(topicoService.listarPorId(id));
     }
 
     @PostMapping
     @Transactional
-    public ResponseEntity registrar(@RequestBody @Valid RegistrarTopicoDTO topico) {
-
+    public ResponseEntity<TopicoRespuestaDTO> registrar(@RequestBody @Valid RegistrarTopicoDTO topico) {
         var respuesta = registrarTopicoService.registrar(topico);
         return ResponseEntity.ok(respuesta);
+    }
+
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity<TopicoRespuestaDTO> actualizarTopico(@PathVariable Long id, @RequestBody @Valid ActualizarTopicoDTO datosActualizarTopico) {
+        TopicoRespuestaDTO topico = topicoService.actualizarTopico(id, datosActualizarTopico);
+        return ResponseEntity.ok(topico);
     }
 }

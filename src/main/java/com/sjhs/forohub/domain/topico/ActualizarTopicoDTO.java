@@ -1,18 +1,12 @@
 package com.sjhs.forohub.domain.topico;
 
-import com.sjhs.forohub.domain.usuario.Usuario;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public record RegistrarTopicoDTO(
-        @NotBlank
+public record ActualizarTopicoDTO(
         String titulo,
-        @NotBlank
         String mensaje,
-        @NotNull
-        Long idUsuario,
-        @NotBlank
-        String curso
+        Boolean status
 ) {
 }
